@@ -2,13 +2,16 @@ import express from "express"
 import { WebSocketServer } from "ws"
 import redisClient from "./redisClient"
 import { ChatMessage } from "./chatMessage"
-
+import path from "path";
 
 const app = express()
 const port = 3000
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/" , (req,res) =>{
-  res.send("Chat Server is Running")
+// Serve index.html when the user accesses the root URL
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const server = app.listen(port , ()=>{
