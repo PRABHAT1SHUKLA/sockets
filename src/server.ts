@@ -43,14 +43,20 @@ ws.on("message" , (data) =>{
   redisClient.lTrim("chat_messages", -100,-1);
 
   wss.clients.forEach((client) =>{
-    if(client.readyState === ws.OPEN)[
+    if(client.readyState === ws.OPEN){
       client.send(messageString)
-    ]
-  })
+    }
+  });
+});
+
+ws.on("close" ,() =>{
+  console.log("Client disconnected")
 })
 
 
 
 
-
 })
+
+
+console.log("WebSocket server is running on ws://localhost:3000");
