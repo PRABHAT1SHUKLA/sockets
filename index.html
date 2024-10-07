@@ -23,6 +23,12 @@
       li.textContent = `[${new Date(message.timestamp).toLocaleTimeString()}] ${message.username}: ${message.message}`;
       messages.appendChild(li);
     };
+
+    function sendMessage() {
+      const username = document.getElementById('username').value;
+      const message = document.getElementById('message').value;
+      ws.send(JSON.stringify({ username, message }));
+    }
   </script>
 </body>
 </html>
