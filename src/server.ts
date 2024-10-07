@@ -37,7 +37,20 @@ ws.on("message" , (data) =>{
   const message:ChatMessage = JSON.parse(data.toString());
   message.timestamp= Date.now();
   const messageString = JSON.stringify(message);
+
+
+  redisClient.rPush("chat_messages" , messageString);
+  redisClient.lTrim("chat_messages", -100,-1);
+
+  wss.clients.forEach((client) =>{
+    if(client.readyState === ws.OPEN)[
+      client.send(messageString)
+    ]
+  })
 })
+
+
+
 
 
 })
