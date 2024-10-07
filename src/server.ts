@@ -20,5 +20,18 @@ const  wss = new WebSocketServer({server});
 wss.on("connection",(ws)=>{
   console.log("Client connected");
 
-  
+  redisClient.lRange("chat_message",0,-1).then(
+    (messages)=>{
+      messages.forEach((message)=>{
+        ws.send(message)
+      })
+},
+(error)=>{
+  console.error("Error retrieving msg fro redis", error)
+  return
+}
+
+);
+
+
 })
