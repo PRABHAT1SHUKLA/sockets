@@ -33,5 +33,11 @@ wss.on("connection",(ws)=>{
 
 );
 
+ws.on("message" , (data) =>{
+  const message:ChatMessage = JSON.parse(data.toString());
+  message.timestamp= Date.now();
+  const messageString = JSON.stringify(message);
+})
+
 
 })
